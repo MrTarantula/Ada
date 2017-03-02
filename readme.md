@@ -1,6 +1,6 @@
 # Ada
 
-Ada is a simple static site generator written in ASP.Net Core. It will generate documentation from sets of Markdown files. This project was inspired by [ReadTheDocs](https://readthedocs.org), [Microsoft Docs](https://docs.microsoft.com), and 
+Ada is a simple static site generator written in ASP.Net Core. It will generate documentation from sets of Markdown files. This project was inspired by [ReadTheDocs](https://readthedocs.org), [Microsoft Docs](https://docs.microsoft.com), and [Sphinx](http://www.sphinx-doc.org/).
 
 ## Configuration
 
@@ -27,29 +27,29 @@ Published:
 
 ## Planned Features
 
-[x] Markdown->HTML pipeline
-[x] Parsing YAML front matter in-document
-[x] Configurable input, output, and template directories
-[x] Basic nav bar
-[x] Basic templating
-[ ] Copy static assets (images, videos, etc.)
-[ ] Advanced nav bar (multiple nesting)
-[ ] Advanced templating/theming
-[ ] Bundling/minifying/injecting CSS and JS
-[ ] Web creation/submission form
-[ ] Editing from web
-[ ] Backup/export/import md files
-[ ] Fluent API
-[ ] Logging
+- [x] Markdown->HTML pipeline
+- [x] Parsing YAML front matter in-document
+- [x] Configurable input, output, and template directories
+- [x] Basic nav bar
+- [x] Basic templating
+- [ ] Copy static assets (images, videos, etc.)
+- [ ] Advanced nav bar (multiple nesting)
+- [ ] Advanced templating/theming
+- [ ] Bundling/minifying/injecting CSS and JS
+- [ ] Web creation/submission form
+- [ ] Editing from web
+- [ ] Backup/export/import md files
+- [ ] Fluent API
+- [ ] Logging
 
 ## Wishlist (not planned but welcome)
 
-[ ] Automatic API documentation generation
-[ ] JSON front matter
-[ ] reStructuredText->HTML pipeline
-[ ] Publish to gh-pages or other hosting sites
+- [ ] Automatic API documentation generation
+- [ ] JSON front matter
+- [ ] reStructuredText->HTML pipeline
+- [ ] Publish to gh-pages or other hosting sites
 
 ## Bugs and Issues
 
-[ ] Paths
-[ ] Markdig advanced extensions
+- [ ] Paths
+- [ ] Markdig advanced extensions
