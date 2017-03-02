@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Admin";
+}
+
+<button type="button" id="generate">Generate</button>
+
+<div id="results" height="25px;" width="50px;"></div>
+
+<script type="text/javascript">
+    var generate = document.getElementById('generate');
+    var results = document.getElementById('results');
+
+    generate.addEventListener('click', function() {
+        var x = new XMLHttpRequest();
+        x.open('GET', 'api/docs/generate');
+        x.send(null);
+        results.innerHTML = 'Generating';
+
+        x.onreadystatechange = function () {
+            var DONE = 4; // readyState 4 means the request is done.
+            var OK = 200; // status 200 is a successful return.
+            if (x.readyState === DONE) {
+                if (x.status === OK) 
+                    results.innerHTML = x.responseText; // 'This is the returned text.'
+            } else {
+                results.innerHTML = x.status; // An error occurred during the request.
+            }
+        }
+    });
+</script>
