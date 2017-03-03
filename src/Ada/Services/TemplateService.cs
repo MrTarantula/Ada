@@ -53,21 +53,52 @@ namespace Ada.Services
             StringBuilder nav = new StringBuilder();
             string[] categories = documents.Select(c => c.Category).Distinct().ToArray();
 
-            nav.Append($"<ul><li><a href=\"/\"</a>{_settings.SiteName}</li>");
+            nav.Append($"<div class=\"col-md-2\"><h1><a href=\"/\">{_settings.SiteName}</a></h1>");
+            nav.Append("<div class=\"list-group\">");
             foreach (string category in categories)
             {
-                nav.Append($"<li><a href=\"/{category.Prettify()}\">{category}");
+                nav.Append($"<a class=\"list-group-item\" href=\"/{category.Prettify()}\">{category}</a>");
                 List<Document> pages = documents.Where(d => d.Category == category).OrderBy(d => d.Title).ToList();
-                nav.Append("<ul>");
                 foreach (var page in pages)
                 {
-                    nav.Append($"<li><a href=\"{page.RelativePath.Urlify()}\">{page.Title}</a></li>");
+                    nav.Append($"<a class=\"list-group-item\" href=\"{page.RelativePath.Urlify()}\">&nbsp;&nbsp; - {page.Title}</a>");
                 }
-                nav.Append("</ul>");
             }
-            nav.Append("</ul>");
+            nav.Append("</div></div><div class=\"col-md-10\">");
 
             return nav.ToString();
+        }
+
+        public void CopyTemplateStyles()
+        {
+            DirectoryInfo templates = new DirectoryInfo(_settings.TemplatePath);
+            DirectoryInfo assets = new DirectoryInfo(Path.Combine(_settings.OutputPath, "assets"));
+
+            if (!assets.Exists)
+            {
+                Directory.CreateDirectory(Path.Combine(_settings.OutputPath, "assets"));
+            }
+
+            foreach (var file in templates.GetFiles("*.css"))
+            {
+                file.CopyTo(Path.Combine(assets.FullName, file.Name));
+            }          
+        }
+
+        public void CopyTemplateJs()
+        {
+            DirectoryInfo templates = new DirectoryInfo(_settings.TemplatePath);
+            DirectoryInfo assets = new DirectoryInfo(Path.Combine(_settings.OutputPath, "assets"));
+
+            if (!assets.Exists)
+            {
+                Directory.CreateDirectory(Path.Combine(_settings.OutputPath, "assets"));
+            }
+
+            foreach (var file in templates.GetFiles("*.js"))
+            {
+                file.CopyTo(Path.Combine(assets.FullName, file.Name));
+            }
         }
     }
 }

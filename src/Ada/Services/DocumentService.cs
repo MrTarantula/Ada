@@ -65,7 +65,7 @@ namespace Ada.Services
             string nav = _templateService.GenerateNav(_documents);
             string footer = _templateService.GenerateFooter(_documents);
 
-            var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+            var pipeline = new MarkdownPipelineBuilder().UseGridTables().UsePipeTables().UseBootstrap().UseDiagrams().UseMathematics().UseFigures().Build();
 
             foreach (var doc in _documents)
             {
@@ -76,7 +76,7 @@ namespace Ada.Services
                     {
                         writer.Write(header);
                         writer.Write(nav);
-                        writer.Write(Markdown.ToHtml(doc.Body));
+                        writer.Write(Markdown.ToHtml(doc.Body, pipeline));
                         writer.Write(footer);
                     }
                 }
@@ -109,6 +109,8 @@ namespace Ada.Services
             MakeDirs(new DirectoryInfo(_settings.InputPath), new DirectoryInfo(_settings.OutputPath));
 
             Templatize();
+            _templateService.CopyTemplateStyles();
+            _templateService.CopyTemplateJs();
         }
 
         private void MakeDirs(DirectoryInfo input, DirectoryInfo output)

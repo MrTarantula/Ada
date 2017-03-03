@@ -6,6 +6,7 @@ Ada is a simple static site generator written in ASP.Net Core. It will generate 
 
 There are 3 configurable paths:
 
+* SiteName - Title of your site
 * InputPath - path to md files. Supports nested directories (somewhat).
 * OutputPath - where you want the site created.
 * TemplatePath - HTML templates. Right now the only files supported are `header.html` and `footer.html`.
@@ -52,4 +53,4 @@ Published:
 ## Bugs and Issues
 
 - [ ] Paths
-- [ ] Markdig advanced extensions
+- [x] Markdig advanced extensions
