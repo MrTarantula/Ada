@@ -33,9 +33,9 @@ Published:
 - [x] Configurable input, output, and template directories
 - [x] Basic nav bar
 - [x] Basic templating
-- [ ] Copy static assets (images, videos, etc.)
-- [ ] Advanced nav bar (multiple nesting)
-- [ ] Advanced templating/theming
+- [ ] Copy static assets (images, videos, etc.) *in progress*
+- [ ] Advanced nav bar (multiple nesting) *in progress*
+- [ ] Advanced templating/theming *in progress*
 - [ ] Bundling/minifying/injecting CSS and JS
 - [ ] Web creation/submission form
 - [ ] Editing from web
@@ -52,5 +52,5 @@ Published:
 
 ## Bugs and Issues
 
-- [ ] Paths
-- [x] Markdig advanced extensions
+- [ ] Paths *in progress*
+- [x] Markdig advanced extensions *FIXED*
