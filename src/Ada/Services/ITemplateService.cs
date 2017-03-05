@@ -10,5 +10,9 @@ namespace Ada.Services
         string GenerateNav(IList<Document> documents);
 
         string GenerateFooter(IList<Document> documents);
+
+        void CopyTemplateStyles();
+
+        void CopyTemplateJs();
     }
 }

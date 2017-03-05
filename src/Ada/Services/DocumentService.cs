@@ -8,6 +8,7 @@ using YamlDotNet.Serialization.NamingConventions;
 using Microsoft.Extensions.Options;
 using System.Text.RegularExpressions;
 using Ada.Services.Helpers;
+using System.Linq;
 
 namespace Ada.Services
 {
@@ -65,7 +66,7 @@ namespace Ada.Services
             string nav = _templateService.GenerateNav(_documents);
             string footer = _templateService.GenerateFooter(_documents);
 
-            var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+            var pipeline = new MarkdownPipelineBuilder().UseGridTables().UsePipeTables().UseBootstrap().UseDiagrams().UseMathematics().UseFigures().Build();
 
             foreach (var doc in _documents)
             {
@@ -76,7 +77,7 @@ namespace Ada.Services
                     {
                         writer.Write(header);
                         writer.Write(nav);
-                        writer.Write(Markdown.ToHtml(doc.Body));
+                        writer.Write(Markdown.ToHtml(doc.Body, pipeline));
                         writer.Write(footer);
                     }
                 }
@@ -109,6 +110,8 @@ namespace Ada.Services
             MakeDirs(new DirectoryInfo(_settings.InputPath), new DirectoryInfo(_settings.OutputPath));
 
             Templatize();
+            _templateService.CopyTemplateStyles();
+            _templateService.CopyTemplateJs();
         }
 
         private void MakeDirs(DirectoryInfo input, DirectoryInfo output)
@@ -133,6 +136,41 @@ namespace Ada.Services
             }
         }
 
+        /// <summary>
+        /// Generates output files based upon category only, ignoring directory structure
+        /// </summary>
+        public void GenerateByCategory()
+        {
+            //delete and create ouptut directory
+            if (Directory.Exists(_settings.OutputPath))
+            {
+                Directory.Delete(_settings.OutputPath, true);
+            }
+
+            Directory.CreateDirectory(_settings.OutputPath);
+
+            var categories = _documents.Select(c => c.Category).Distinct().ToList();
+
+            foreach (var category in categories)
+            {
+                Directory.CreateDirectory(Path.Combine(_settings.OutputPath, category.Prettify()));
+
+                var pages = _documents.Where(p => p.Category == category);
+
+                foreach (var page in pages)
+                {
+                    using (var reader = File.OpenText(Path.Combine(_settings.OutputPath, category.Prettify(), "index.html")))
+                    {
+                        //TODO
+                    }
+                } 
+            }
+        }
+
+        /// <summary>
+        /// Creates index page for category
+        /// </summary>
+        /// <param name="dir"></param>
         private void GenerateIndex(DirectoryInfo dir)
         {
             string header = _templateService.GenerateHeader(_documents);
