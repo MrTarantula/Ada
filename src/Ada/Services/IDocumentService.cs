@@ -2,8 +2,8 @@
 {
     public interface IDocumentService
     {
-        void ReadDocuments();
-
-        void Generate();
+        bool ProcessDocuments();
+        void ExtractFrontMatter();
+        void Folderize();
     }
 }

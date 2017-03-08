@@ -35,12 +35,12 @@ Published:
 - [x] Basic templating
 - [ ] Copy static assets (images, videos, etc.) *in progress*
 - [ ] Advanced nav bar (multiple nesting) *in progress*
-- [ ] Advanced templating/theming *in progress*
+- [ ] Multiple templating engines *in progress*
+- [ ] Theme packages *in progress*
 - [ ] Bundling/minifying/injecting CSS and JS
 - [ ] Web creation/submission form
 - [ ] Editing from web
 - [ ] Backup/export/import md files
-- [ ] Fluent API
 - [ ] Logging
 
 ## Wishlist (not planned but welcome)
@@ -49,6 +49,8 @@ Published:
 - [ ] JSON front matter
 - [ ] reStructuredText->HTML pipeline
 - [ ] Publish to gh-pages or other hosting sites
+- [ ] .Net Standard 2.0 library
+- [ ] Fluent API
 
 ## Bugs and Issues
 

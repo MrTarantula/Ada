@@ -16,7 +16,7 @@
     "YamlDotNet.NetCore": "1.0.0",
     "Microsoft.VisualStudio.Web.BrowserLink": "1.1.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.1.0",
-    "Handlebars.Net": "1.8.0"
+    "Handlebars.NetStandard": "1.8.1"
   },
 
   "tools": {

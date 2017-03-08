@@ -25,7 +25,7 @@ namespace Ada.Controllers
         {
             try
             {
-                _service.ReadDocuments();
+                _service.ProcessDocuments();
             }
             catch (Exception ex)
             {

@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Ada.Models;
 using Ada.Services;
+using Ada.Engines;
 
 namespace Ada
 {
@@ -36,7 +37,8 @@ namespace Ada
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.AddTransient<IDocumentService, DocumentService>();
-            services.AddTransient<ITemplateService, TemplateService>();
+            //services.AddTransient<IEngine, HandlebarsEngine>();
+            services.AddTransient<IEngine, RazorEngine>();
 
             services.AddMvc();
         }

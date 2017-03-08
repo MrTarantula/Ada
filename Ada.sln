@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Ada", "src\Ada\Ada.xproj", "{211CDAB8-AA1B-4987-9D15-D2276D1B70BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ada.Tests", "Ada.Tests\Ada.Tests.csproj", "{67045018-2D84-4D3B-92A0-C11B1DAB705E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,11 +25,16 @@ Global
 		{211CDAB8-AA1B-4987-9D15-D2276D1B70BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{211CDAB8-AA1B-4987-9D15-D2276D1B70BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{211CDAB8-AA1B-4987-9D15-D2276D1B70BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67045018-2D84-4D3B-92A0-C11B1DAB705E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67045018-2D84-4D3B-92A0-C11B1DAB705E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67045018-2D84-4D3B-92A0-C11B1DAB705E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67045018-2D84-4D3B-92A0-C11B1DAB705E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{211CDAB8-AA1B-4987-9D15-D2276D1B70BE} = {AAD81726-0063-44D5-81B5-00E79ADB105B}
+		{67045018-2D84-4D3B-92A0-C11B1DAB705E} = {AAD81726-0063-44D5-81B5-00E79ADB105B}
 	EndGlobalSection
 EndGlobal
