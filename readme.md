@@ -4,8 +4,6 @@ Ada is a simple static site generator written in ASP.Net Core. It will generate 
 
 ## Configuration
 
-There are 3 configurable paths:
-
 * SiteName - Title of your site
 * InputPath - path to md files. Supports nested directories (somewhat).
 * OutputPath - where you want the site created.
@@ -15,14 +13,40 @@ There are 3 configurable paths:
 
 Use the following as a template for your files. These are the only currently supported fields. It is highly recommended you include at least a `Title` and `Category`.
 
+### YAML
 ```
 Title: 
-Description: 
+Description:
 Category: 
-Author: 
-Published: 
+Subcategory: 
+History:
+ - Author: Ryan Tauriainen
+   ModifiedDate: 3/7/2017
+ - Author: Ryan Tauriainen
+   ModifiedDate: 3/3/2017
 ---
 
+
+```
+
+### JSON *coming soon but it will probably look like this*
+
+```
+{
+	"Title": "",
+	"Description": "",
+	"Category": "",
+	"Subcategory": "",
+	"History": [{
+		"Author": "",
+		"ModifiedDate": ""
+		},
+		{
+		"Author": "",
+		"ModifiedDate": ""
+	}]
+}
+---
 
 ```
 
