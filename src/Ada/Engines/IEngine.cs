@@ -5,6 +5,7 @@ namespace Ada.Engines
 {
     public interface IEngine
     {
-        void Templatize(List<Document> documents);
+        void Generate(List<Document> documents);
+        string Templatize(Document document);
     }
 }
