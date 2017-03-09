@@ -55,8 +55,8 @@ History:
 - [x] Markdown->HTML pipeline
 - [x] Parsing YAML front matter in-document
 - [x] Configurable input, output, and template directories
-- [x] Basic nav bar
-- [x] Basic templating
+~~ - [x] Basic nav bar~~ (gutted this while working on advanced templates)
+~~ - [x] Basic templating~~ (gutted this while working on advanced templates)
 - [ ] Copy static assets (images, videos, etc.) *in progress*
 - [ ] Advanced nav bar (multiple nesting) *in progress*
 - [ ] Multiple templating engines *in progress*
@@ -78,5 +78,5 @@ History:
 
 ## Bugs and Issues
 
-- [ ] Paths *in progress*
-- [x] Markdig advanced extensions *FIXED*
+- [x] Paths
+- [x] Markdig advanced extensions

@@ -26,18 +26,63 @@ namespace Ada.Engines
         {
             var engine = EngineFactory.CreatePhysical(Path.Combine(_settings.TemplatePath));
 
-            string test = engine.Parse("_nav.cshtml", ProcessNav(documents));
-            Console.WriteLine(test);
+            //process nonexisting documents
+            var nonexistentCats = documents
+                .Where(c => documents.All(d => c.Category != d.Title))
+                .Select(x => x.Category)
+                .Distinct()
+                .ToList();
+
+            foreach (string category in nonexistentCats)
+            {
+                using (var writer = File.CreateText(Path.Combine(_settings.OutputPath, category.Prettify(), "index.html")))
+                {
+                    writer.Write(engine.Parse("template.cshtml", new Document { Title = category, Description = "This is an empty category" }));
+                }
+            }
+
+            var nonexistentSubcats = documents
+                .Where(s => documents.All(d => s.Subcategory != d.Title) && s.Subcategory != null)
+                .Select(x => new { Category = x.Category, Subcategory = x.Subcategory })
+                .Distinct()
+                .ToList();
+
+            foreach (var subcategory in nonexistentSubcats)
+            {
+                using (var writer = File.CreateText(Path.Combine(_settings.OutputPath, subcategory.Category.Prettify(), subcategory.Subcategory.Prettify(), "index.html")))
+                {
+                    writer.Write(engine.Parse("template.cshtml", new Document { Title = subcategory.Subcategory, Description = "This is an empty subcategory" }));
+                }
+            }
+
+            if (documents.All(d => d.Category != null))
+            {
+                using (var writer = File.CreateText(Path.Combine(_settings.OutputPath, "index.html")))
+                {
+                    writer.Write(engine.Parse("template.cshtml", new Document { Title = _settings.SiteName, Description = "This is the index!" }));
+                }
+            }
+
+            //process existing documents
             foreach (var doc in documents)
             {
+                //site Index page
+                if (doc.Category == null || doc.Category == "Index")
+                {
+                    using (var writer = File.CreateText(Path.Combine(_settings.OutputPath, "index.html")))
+                    {
+                        writer.Write(engine.Parse("template.cshtml", doc));
+                    }
+                }
+                //category index page
                 if (doc.Category == doc.Title)
                 {
                     using (var writer = File.CreateText(Path.Combine(_settings.OutputPath, doc.Category.Prettify(), "index.html")))
                     {
-                        //need children table
                         writer.Write(engine.Parse("template.cshtml", doc));
                     }
                 }
+                //subcategory index page, when it exists
                 else if (doc.Subcategory == doc.Title)
                 {
                     using (var writer = File.CreateText(Path.Combine(_settings.OutputPath, doc.Category.Prettify(), doc.Subcategory.Prettify(), "index.html")))
@@ -46,6 +91,7 @@ namespace Ada.Engines
                         writer.Write(engine.Parse("template.cshtml", doc));
                     }
                 }
+                //document page
                 else
                 {
                     using (var writer = File.CreateText(Path.Combine(_settings.OutputPath, doc.Category.Prettify(), doc.Subcategory.Prettify(), doc.Title.Prettify(), "index.html")))
