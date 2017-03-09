@@ -7,6 +7,7 @@ using System.IO;
 using Ada.Helpers;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using RazorLight;
 
 namespace Ada.Engines
 {
@@ -23,7 +24,10 @@ namespace Ada.Engines
 
         public void Templatize(List<Document> documents)
         {
+            var engine = EngineFactory.CreatePhysical(Path.Combine(_settings.TemplatePath));
 
+            string test = engine.Parse("_nav.cshtml", ProcessNav(documents));
+            Console.WriteLine(test);
             foreach (var doc in documents)
             {
                 if (doc.Category == doc.Title)
@@ -31,7 +35,7 @@ namespace Ada.Engines
                     using (var writer = File.CreateText(Path.Combine(_settings.OutputPath, doc.Category.Prettify(), "index.html")))
                     {
                         //need children table
-                        writer.Write("Category Index exists");
+                        writer.Write(engine.Parse("template.cshtml", doc));
                     }
                 }
                 else if (doc.Subcategory == doc.Title)
@@ -39,17 +43,41 @@ namespace Ada.Engines
                     using (var writer = File.CreateText(Path.Combine(_settings.OutputPath, doc.Category.Prettify(), doc.Subcategory.Prettify(), "index.html")))
                     {
                         //need children table
-                        writer.Write("Subcategory Index exists");
+                        writer.Write(engine.Parse("template.cshtml", doc));
                     }
                 }
                 else
                 {
                     using (var writer = File.CreateText(Path.Combine(_settings.OutputPath, doc.Category.Prettify(), doc.Subcategory.Prettify(), doc.Title.Prettify(), "index.html")))
                     {
-                        writer.Write("This is a page");
+                        writer.Write(engine.Parse("template.cshtml", doc));
                     }
                 }
             }
+        }
+
+        private List<Category> ProcessNav(List<Document> documents)
+        {
+            List<Category> nav = new List<Category>();
+
+            foreach (var cat in documents.Select(c => c.Category).Distinct())
+            {
+                nav.Add(new Category
+                {
+                    Name = cat,
+                    Subcategories = documents
+                            .Where(c => c.Category == cat && c.Subcategory != null)
+                            .Select(s => new Category
+                            {
+                                Name = s.Subcategory,
+                                Pages = documents.Where(p => p.Subcategory == s.Subcategory).Select(p => p.Title).ToList()
+                            }).ToList(),
+                    Pages = documents.Where(p => p.Category == cat && p.Subcategory == null).Select(p => p.Title).ToList()
+                }
+                );
+            }
+
+            return nav;
         }
     }
 }

@@ -16,7 +16,8 @@
     "YamlDotNet.NetCore": "1.0.0",
     "Microsoft.VisualStudio.Web.BrowserLink": "1.1.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.1.0",
-    "Handlebars.NetStandard": "1.8.1"
+    "Handlebars.NetStandard": "1.8.1",
+    "RazorLight": "1.0.0-rc2"
   },
 
   "tools": {
