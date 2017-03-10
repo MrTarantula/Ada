@@ -36,7 +36,7 @@ namespace Ada
             services.AddApplicationInsightsTelemetry(Configuration);
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
-            services.AddTransient<IDocumentService, DocumentService>();
+            services.AddTransient<IService, MarkdownService>();
             //services.AddTransient<IEngine, HandlebarsEngine>();
             services.AddTransient<IEngine, RazorEngine>();
 

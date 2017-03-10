@@ -12,9 +12,9 @@ namespace Ada.Controllers
     [Route("api/[controller]")]
     public class DocsController : Controller
     {
-        private IDocumentService _service;
+        private IService _service;
 
-        public DocsController(IDocumentService service)
+        public DocsController(IService service)
         {
             _service = service;
         }

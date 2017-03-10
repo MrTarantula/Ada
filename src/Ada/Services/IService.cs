@@ -1,6 +1,6 @@
 ﻿namespace Ada.Services
 {
-    public interface IDocumentService
+    public interface IService
     {
         bool ProcessDocuments();
         void ExtractFrontMatter();
