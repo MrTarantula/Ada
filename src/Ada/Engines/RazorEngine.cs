@@ -11,7 +11,7 @@ namespace Ada.Engines
         private TemplateSettings _templateSettings;
         private IRazorLightEngine _engine;
 
-        public RazorEngine(IOptions<AppSettings> settings) : base(settings)
+        public RazorEngine(IOptionsSnapshot<AppSettings> settings) : base(settings)
         {
             _templateSettings = JsonConvert.DeserializeObject<TemplateSettings>(File.ReadAllText(Path.Combine(_settings.TemplatePath, "template.json")));
             _engine = EngineFactory.CreatePhysical(Path.Combine(_settings.TemplatePath));

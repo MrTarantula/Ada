@@ -14,7 +14,7 @@ namespace Ada.Services
     {
         MarkdownPipeline _pipeline = new MarkdownPipelineBuilder().UseGridTables().UsePipeTables().UseBootstrap().UseDiagrams().UseMathematics().UseFigures().Build();
 
-        public MarkdownService(IOptions<AppSettings> settings, IEngine engine) : base(settings, engine)
+        public MarkdownService(IOptionsSnapshot<AppSettings> settings, IEngine engine) : base(settings, engine)
         {
         }
 

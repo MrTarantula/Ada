@@ -16,7 +16,7 @@ namespace Ada.Services
         public readonly IEngine _engine;
         public List<Document> _documents = new List<Document>();
 
-        public BaseService(IOptions<AppSettings> settings, IEngine engine)
+        public BaseService(IOptionsSnapshot<AppSettings> settings, IEngine engine)
         {
             _settings = settings.Value;
             _engine = engine;

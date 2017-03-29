@@ -10,7 +10,7 @@ namespace Ada.Engines
     {
         private TemplateSettings _templateSettings;
 
-        public HandlebarsEngine(IOptions<AppSettings> settings) : base(settings)
+        public HandlebarsEngine(IOptionsSnapshot<AppSettings> settings) : base(settings)
         {
             _templateSettings = JsonConvert.DeserializeObject<TemplateSettings>(File.ReadAllText(Path.Combine(_settings.TemplatePath, "template.json")));
             Handlebars.RegisterTemplate("nav", File.ReadAllText(Path.Combine(_settings.TemplatePath, _templateSettings.NavPartial)));

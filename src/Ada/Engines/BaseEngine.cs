@@ -11,14 +11,15 @@ namespace Ada.Engines
     {
         public readonly AppSettings _settings;
 
-        public BaseEngine(IOptions<AppSettings> settings)
+        public BaseEngine(IOptionsSnapshot<AppSettings> settings)
         {
             _settings = settings.Value;
         }
 
         public void Generate(List<Document> documents)
         {
-            //process nonexisting documents
+
+            //Create nonexistent documents if needed
             var nonexistentCats = documents
                 .Where(c => documents.All(d => c.Category != d.Title))
                 .Select(x => x.Category)
@@ -27,10 +28,11 @@ namespace Ada.Engines
 
             foreach (string category in nonexistentCats)
             {
-                using (var writer = File.CreateText(Path.Combine(_settings.OutputPath, category.Prettify(), "index.html")))
+                documents.Add(new Document
                 {
-                    writer.Write(Templatize(new Document { Title = category }));
-                }
+                    Title = category,
+                    Category = category
+                });
             }
 
             var nonexistentSubcats = documents
@@ -41,25 +43,28 @@ namespace Ada.Engines
 
             foreach (var subcategory in nonexistentSubcats)
             {
-                using (var writer = File.CreateText(Path.Combine(_settings.OutputPath, subcategory.Category.Prettify(), subcategory.Subcategory.Prettify(), "index.html")))
+                documents.Add(new Document
                 {
-                    writer.Write(Templatize(new Document { Title = subcategory.Subcategory }));
-                }
+                    Title = subcategory.Subcategory,
+                    Category = subcategory.Category,
+                    Subcategory = subcategory.Subcategory
+                });
             }
 
-            if (documents.All(d => d.Category != null))
+            if (documents.All(d => d.Category != null && d.Category != "Index"))
             {
-                using (var writer = File.CreateText(Path.Combine(_settings.OutputPath, "index.html")))
+                documents.Add(new Document
                 {
-                    writer.Write(Templatize( new Document { Title = _settings.SiteName }));
-                }
+                    Title = _settings.SiteName,
+                    Category = "Index"
+                });
             }
 
             //process existing documents
             foreach (var doc in documents)
             {
                 //site Index page
-                if (doc.Category == null || doc.Category == "Index")
+                if (doc.Category == "Index")
                 {
                     using (var writer = File.CreateText(Path.Combine(_settings.OutputPath, "index.html")))
                     {
@@ -97,30 +102,6 @@ namespace Ada.Engines
         public virtual string Templatize(Document document)
         {
             return document.ToString();
-        }
-
-        public List<Category> ProcessNav(List<Document> documents)
-        {
-            List<Category> nav = new List<Category>();
-
-            foreach (var cat in documents.Select(c => c.Category).Distinct())
-            {
-                nav.Add(new Category
-                {
-                    Name = cat,
-                    Subcategories = documents
-                            .Where(c => c.Category == cat && c.Subcategory != null)
-                            .Select(s => new Category
-                            {
-                                Name = s.Subcategory,
-                                Pages = documents.Where(p => p.Subcategory == s.Subcategory).Select(p => p.Title).ToList()
-                            }).ToList(),
-                    Pages = documents.Where(p => p.Category == cat && p.Subcategory == null).Select(p => p.Title).ToList()
-                }
-                );
-            }
-
-            return nav;
         }
     }
 }
