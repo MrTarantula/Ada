@@ -16,7 +16,7 @@ namespace Ada.Engines
             _settings = settings.Value;
         }
 
-        public void Generate(List<Document> documents)
+        public virtual void Generate(List<Document> documents)
         {
 
             //Create nonexistent documents if needed
