@@ -3,6 +3,7 @@ using System.IO;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RazorLight;
+using System.Collections.Generic;
 
 namespace Ada.Engines
 {
@@ -17,9 +18,14 @@ namespace Ada.Engines
             _engine = EngineFactory.CreatePhysical(Path.Combine(_settings.TemplatePath));
         }
 
-        public override string Templatize(Document document)
+        public override string Templatize(Document document, string nav)
         {
-            return _engine.Parse("template.cshtml", document);
+            return _engine.Parse("template.cshtml", nav);
+        }
+
+        public override string TemplatizeNav(List<Document> documents)
+        {
+            return _engine.Parse("nav.cshtml", documents);
         }
     }
 }

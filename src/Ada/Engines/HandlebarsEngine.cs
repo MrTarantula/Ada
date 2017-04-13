@@ -16,7 +16,7 @@ namespace Ada.Engines
             Handlebars.RegisterTemplate("nav", File.ReadAllText(Path.Combine(_settings.TemplatePath, _templateSettings.NavPartial)));
         }
 
-        public override string Templatize(Document document)
+        public override string Templatize(Document document, string nav)
         {
             string temp = File.ReadAllText(Path.Combine(_settings.TemplatePath, _templateSettings.Template));
             var template = Handlebars.Compile(temp);

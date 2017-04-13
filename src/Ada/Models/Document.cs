@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ada.Helpers;
+using System;
 
 namespace Ada.Models
 {
@@ -17,32 +18,26 @@ namespace Ada.Models
 
         private string GetPath()
         {
-            //WIP
-            string cat;
-            string subcat;
-            string ti;
-
+            
             if (Category == "Index")
             {
-                cat = "/";
-                subcat = "";
-                ti = "";
+                return "/";
             }
-            else if (Title == Category && string.IsNullOrEmpty(Category))
+            else if (Title == Category && string.IsNullOrEmpty(Subcategory))
             {
-                cat = Category;
-                subcat = "";
-                ti = "";
+                return $"/{Title.Prettify()}";
             }
             else if (Title == Subcategory)
             {
-                cat = $"/{Category}";
-                subcat = "";
+                return $"/{Category.Prettify()}/{Subcategory.Prettify()}";
             }
-            return string.Concat(
-                string.IsNullOrEmpty(Category) ? "" : $"/{Category}",
-                string.IsNullOrEmpty(Subcategory) ? "" : $"/{Subcategory}",
-                Title);
+            else
+            {
+                return string.Concat(
+                    string.IsNullOrEmpty(Category) ? "" : $"/{Category.Prettify()}",
+                    string.IsNullOrEmpty(Subcategory) ? "" : $"/{Subcategory.Prettify()}",
+                    $"/{Title.Prettify()}");
+            }
         }
     }
 }

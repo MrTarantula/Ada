@@ -18,6 +18,7 @@ namespace Ada.Engines
 
         public void Generate(List<Document> documents)
         {
+            string nav = TemplatizeNav(documents);
 
             //Create nonexistent documents if needed
             var nonexistentCats = documents
@@ -68,7 +69,7 @@ namespace Ada.Engines
                 {
                     using (var writer = File.CreateText(Path.Combine(_settings.OutputPath, "index.html")))
                     {
-                        writer.Write(Templatize(doc));
+                        writer.Write(Templatize(doc, nav));
                     }
                 }
                 //category index page
@@ -76,7 +77,7 @@ namespace Ada.Engines
                 {
                     using (var writer = File.CreateText(Path.Combine(_settings.OutputPath, doc.Category.Prettify(), "index.html")))
                     {
-                        writer.Write(Templatize(doc));
+                        writer.Write(Templatize(doc, nav));
                     }
                 }
                 //subcategory index page, when it exists
@@ -85,7 +86,7 @@ namespace Ada.Engines
                     using (var writer = File.CreateText(Path.Combine(_settings.OutputPath, doc.Category.Prettify(), doc.Subcategory.Prettify(), "index.html")))
                     {
                         //need children table
-                        writer.Write(Templatize(doc));
+                        writer.Write(Templatize(doc, nav));
                     }
                 }
                 //document page
@@ -93,15 +94,20 @@ namespace Ada.Engines
                 {
                     using (var writer = File.CreateText(Path.Combine(_settings.OutputPath, doc.Category.Prettify(), doc.Subcategory.Prettify(), doc.Title.Prettify(), "index.html")))
                     {
-                        writer.Write(Templatize(doc));
+                        writer.Write(Templatize(doc, nav));
                     }
                 }
             }
         }
 
-        public virtual string Templatize(Document document)
+        public virtual string Templatize(Document document, string nav)
         {
             return document.ToString();
+        }
+
+        public virtual string TemplatizeNav(List<Document> documents)
+        {
+            return documents.ToString();
         }
     }
 }
